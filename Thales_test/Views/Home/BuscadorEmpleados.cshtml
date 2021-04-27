@@ -1,0 +1,80 @@
+﻿<script>
+    function BuscarEmpleados() {
+        limpiar();
+        var idDi = $("#InputID").val() == "" ? 0 : $("#InputID").val();
+        $.ajax({
+            type: "GET",
+            data: { 'id': idDi},
+            url: "../Home/ListarEmpleados",
+        }).done(function (s) {
+            var EmpleadosB = s.Objeto;
+            let tablaEmpleados = document.getElementById('Empleados');
+            let cuerpoTabla = document.createElement('tbody');
+
+            EmpleadosB.forEach(p => {
+                let fila = document.createElement('tr');
+
+                let td = document.createElement('td');
+                td.innerText = p.id;
+                fila.appendChild(td);
+
+                td = document.createElement('td');
+                td.innerText = p.employee_name;
+                fila.appendChild(td);
+
+                td = document.createElement('td');
+                td.innerText = p.employee_salary;
+                fila.appendChild(td);
+
+                td = document.createElement('td');
+                td.innerText = p.Employee_anual_salary;
+                fila.appendChild(td);
+
+
+                td = document.createElement('td');
+                td.innerText = p.employee_age;
+                fila.appendChild(td);
+
+                cuerpoTabla.appendChild(fila);
+            });
+
+            tablaEmpleados.appendChild(cuerpoTabla);
+            $("#InputID").val("");
+        });
+
+    };
+
+    function limpiar() {        
+        $('#Empleados tbody tr').slice(1).remove();
+    };
+</script>
+<div class="jumbotron">
+    <div class="row" style="margin-top:15px;">
+        <div class="col-md-8">
+            <div class="form-group">
+                <label for="InputID">ID del Empleado</label>
+                <input type="text" class="form-control" id="InputID" placeholder="Ingrese ID del Empleado">
+            </div>
+        </div>
+        <div class="col-md-2">
+            <button onclick="limpiar()" type="button" class="btn btn-info form-control"><span class="glyphicon glyphicon-refresh"></span>  Limpiar</button>
+        </div>
+        <div class="col-md-2">
+            <button onclick="BuscarEmpleados()" type="button" class="btn btn-primary form-control"><span class="glyphicon glyphicon-search"></span>  Buscar</button>
+        </div>
+    </div>
+    <div class="row" style="margin-top:15px;">
+        <div class="col-md-12">
+            <table id="Empleados" class="table table-bordered">
+                <caption>Lista de Empleados</caption>
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Salario</th>
+                    <th>Salario Anual</th>
+                    <th>Edad</th>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
