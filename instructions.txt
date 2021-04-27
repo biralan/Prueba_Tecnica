@@ -1,0 +1,4 @@
+Requirements:
+visual studio 2017 or higher
+
+The project already has all the necessary packages, just run it in visual studio and test the employee search.
